@@ -1,71 +1,33 @@
-import "@/styles/globals.css";
-import { Metadata, Viewport } from "next";
-import clsx from "clsx";
-import React from "react";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
 
-import { Providers } from "./providers";
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
-import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
-import { Navbar } from "@/components/navbar";
-import { Footer } from '@/components/footer';
-import { ClarityInit } from "@/components/ClarityInit";
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  icons: {
-    icon: "/favicon.ico",
-  },
-  robots: {
-    index: false,
-    follow: false,
-  },
+  title: "Veridion Studios",
+  description: "A suite of tools and programs for developers.",
 };
-
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-};
-
-export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html suppressHydrationWarning lang="en">
-      <head className="bg-white dark:bg-black">
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: `window.$crisp=[];window.CRISP_WEBSITE_ID="1a08a7e2-e7fe-4a53-8f39-b8f2a295a244";(function(){var d=document;s=d.createElement('script');s.src='https://client.crisp.chat/l.js';s.async=1;d.getElementsByTagName('head')[0].appendChild(s);})();`
-          }}
-        />
-      </head>
+    <html lang="en">
       <body
-        className={clsx(
-          "min-h-screen text-foreground font-sans antialiased",
-          fontSans.variable,
-        )}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <ClarityInit projectId={projectId} />
-          <div className="relative flex flex-col h-screen">
-            <Navbar />
-            <main className="container mx-auto max-w-4xl pt-6 px-6 flex-grow">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </Providers>
+        {children}
       </body>
     </html>
   );
