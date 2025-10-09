@@ -120,3 +120,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Ripple animation */
+.animate-ripple {
+  animation: ripple 0.6s linear;
+}
+@keyframes ripple {
+  0% { opacity: 1; transform: scale(0); }
+  100% { opacity: 0; transform: scale(2); }
+}
