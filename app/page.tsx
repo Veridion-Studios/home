@@ -1,3 +1,4 @@
+import ThemeToggle from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
   Upload,
@@ -38,16 +39,16 @@ const HomePage = () => {
     <>
       {/* Hero Section */}
       <section className="min-h-screen flex flex-col justify-center items-center px-6 text-center animate-fadeIn relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-black to-violet-900 -z-10" />
+      {/*  <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-black to-violet-900 -z-10" /> */}
         <main className="container mx-auto max-w-7xl px-6 flex-grow flex items-center justify-center">
           <div className="max-w-4xl">
-            <p className="text-sm uppercase tracking-wider text-purple-400 mb-2">
-              Launch faster
+            <p className="text-sm uppercase tracking-wider text-purple-700 dark:text-purple-400 mb-2">
+              Build Your Project Today
             </p>
-            <h1 className="text-6xl md:text-6xl font-bold mb-4 text-white">
+            <h1 className="text-6xl md:text-6xl font-bold mb-4 text-black dark:text-white">
               Where Ideas Come to Life
             </h1>
-            <p className="text-lg md:text-xl mb-8 text-gray-300">
+            <p className="text-lg md:text-xl mb-8 text-neutral-700">
               Veridion Studios is a creative agency for makers, dreamers, and
               founders — helping you turn sparks of imagination into stunning,
               scalable projects. From websites to full business launches, we make
@@ -61,12 +62,14 @@ const HomePage = () => {
             >
               Get Started
             </Button>
+
+            <ThemeToggle />
           </div>
         </main>
       </section>
 
       {/* Features Section */}
-      <section className="bg-gray-950 py-24 sm:py-32">
+      <section className="bg-neutral-950 py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-base font-semibold text-purple-400">
@@ -75,7 +78,7 @@ const HomePage = () => {
             <p className="mt-2 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
               Everything you need to launch your vision
             </p>
-            <p className="mt-6 text-lg text-gray-300">
+            <p className="mt-6 text-lg text-neutral-300">
               From design to deployment, Veridion Studios gives creators and
               founders the tools and support to bring ideas to life — beautifully
               and efficiently.
