@@ -8,27 +8,27 @@ import {
 
 const features = [
   {
-    name: "Push to deploy",
+    name: "Website Development",
     description:
-      "Deploy your project effortlessly with seamless integration. We make publishing updates fast, simple, and reliable.",
+      "We will build you a modern, responsive website that showcases your brand and captivates your audience.",
     icon: Upload,
   },
   {
-    name: "SSL certificates",
+    name: "YSWS Programs",
     description:
-      "Keep your users secure with automatic SSL certificates and strong encryption — no setup required.",
+      "You make an awesome project, we will ship you a prize!",
     icon: Lock,
   },
   {
-    name: "Simple queues",
+    name: "Other Services",
     description:
-      "Handle background tasks and operations smoothly with our built-in queue system for reliable scaling.",
+      "We offer a ton of services to help you get started, contact us for more information.",
     icon: RefreshCcw,
   },
   {
-    name: "Advanced security",
+    name: "Small Business Management",
     description:
-      "Industry-grade security built in from the start — authentication, encryption, and continuous monitoring.",
+      "Have you always wanted to start a small business? We can help you with that! Just let us know some information about your busines, and we will get you started.",
     icon: Fingerprint,
   },
 ];
