@@ -1,4 +1,4 @@
-import ThemeToggle from "@/components/theme-toggle";
+import { BorderBeam } from "@/components/magicui/border-beam";
 import { Button } from "@/components/ui/button";
 import {
   Upload,
@@ -38,9 +38,9 @@ const HomePage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center items-center px-6 text-center animate-fadeIn relative">
+      <section className="min-h-[85vh] flex flex-col justify-center items-center text-center animate-fadeIn relative">
       {/*  <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-black to-violet-900 -z-10" /> */}
-        <main className="container mx-auto max-w-7xl px-6 flex-grow flex items-center justify-center">
+        <main className="container mx-auto max-w-7xl flex-grow flex items-center justify-center">
           <div className="max-w-4xl">
             <p className="text-sm uppercase tracking-wider text-purple-700 dark:text-purple-400 mb-2">
               Build Your Project Today
@@ -48,7 +48,7 @@ const HomePage = () => {
             <h1 className="text-6xl md:text-6xl font-bold mb-4 text-black dark:text-white">
               Where Ideas Come to Life
             </h1>
-            <p className="text-lg md:text-xl mb-8 text-neutral-700">
+            <p className="text-lg md:text-xl mb-8 text-neutral-900 dark:text-neutral-400">
               Veridion Studios is a creative agency for makers, dreamers, and
               founders — helping you turn sparks of imagination into stunning,
               scalable projects. From websites to full business launches, we make
@@ -60,16 +60,15 @@ const HomePage = () => {
               variant="purple"
               className="rounded-2xl mt-4 text-lg"
             >
+            <BorderBeam duration={8} size={100} />
               Get Started
             </Button>
-
-            <ThemeToggle />
           </div>
         </main>
       </section>
 
       {/* Features Section */}
-      <section className="bg-neutral-950 py-24 sm:py-32">
+      <section className="sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-base font-semibold text-purple-400">

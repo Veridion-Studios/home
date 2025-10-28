@@ -1,140 +1,172 @@
 "use client";
 
-import {
-  Navbar as HeroUINavbar,
-  NavbarContent,
-  NavbarMenu,
-  NavbarMenuToggle,
-  NavbarBrand,
-  NavbarItem,
-  NavbarMenuItem,
-} from "@heroui/react";
-import { Button } from "@heroui/button";
-import { Link } from "@heroui/link";
+import React from "react";
 import NextLink from "next/link";
 
-import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
+} from "@/components/ui/dropdown-menu";
+
+import  ThemeToggle  from "@/components/theme-toggle";
 import { Logo } from "@/components/icons";
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/react";
+
 import {
   ChevronDown,
   BookOpenText,
   Search,
   Users,
-  ScrollText
+  ScrollText,
+  Menu as MenuIcon,
+  X as XIcon,
 } from "lucide-react";
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
+
 import dropdownProgramsRaw from "@/data/dropdown-programs.json";
 
-export const Navbar = () => {
+export const Navbar: React.FC = () => {
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  // track which tagged dropdown is open (null = none)
+  const [openTag, setOpenTag] = React.useState<string | null>(null);
+
   const icons = {
-    chevron: <ChevronDown />, 
-    scroll: <ScrollText className="text-[#8722EA]" />, 
-    users: <Users className="text-[#8722EA]" />,
-    book: <BookOpenText className="text-[#8722EA]" />,
-    search: <Search className="text-[#8722EA]" />,
+    chevron: <ChevronDown className="size-4" />,
+    scroll: <ScrollText className="text-[#8722EA] size-4" />,
+    users: <Users className="text-[#8722EA] size-4" />,
+    book: <BookOpenText className="text-[#8722EA] size-4" />,
+    search: <Search className="text-[#8722EA] size-4" />,
   };
 
-  // Parse dropdown items from JSON
-  const dropdownPrograms = Array.isArray(dropdownProgramsRaw) ? dropdownProgramsRaw : [];
+  const dropdownPrograms = Array.isArray(dropdownProgramsRaw)
+    ? dropdownProgramsRaw
+    : [];
 
+  // group items by tag (expects each item in the JSON to have a "tag" string)
+  const grouped = dropdownPrograms.reduce<Record<string, any[]>>((acc, item: any) => {
+    const tag = (item?.tag as string) || "Other";
+    if (!acc[tag]) acc[tag] = [];
+    acc[tag].push(item);
+    return acc;
+  }, {});
+
+  const capitalize = (s: string) =>
+    s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
   return (
-    <HeroUINavbar maxWidth="lg" position="sticky">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-2" href="/">
-            <Logo />
-            <span aria-hidden="true" className="inline-block h-6 w-px bg-default-200 rounded mx-1" />
-            <p className="font-bold text-inherit">The Veridion Library</p>
-          </NextLink>
-        </NavbarBrand>
-      </NavbarContent>
-        <NavbarContent className="hidden sm:flex gap-4 flex-1" justify="center">
-          <Dropdown>
-            <NavbarItem>
-              <DropdownTrigger>
-                <Button
-                  disableRipple
-                  className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-                  endContent={icons.chevron}
-                  radius="sm"
-                  variant="light"
-                >
-                  Our Programs
-                </Button>
-              </DropdownTrigger>
-            </NavbarItem>
-            <DropdownMenu aria-label="ACME features" itemClasses={{ base: "gap-4" }}>
-              {dropdownPrograms.map(item => (
-                <DropdownItem
-                  key={item.key}
-                  description={item.description}
-                  startContent={icons[item.startContent as keyof typeof icons]}
-                >
-                  {item.title}
-                </DropdownItem>
-              ))}
-            </DropdownMenu>
-          </Dropdown>
-        </NavbarContent>
+    <nav className="sticky top-0 z-40 bg-transparent backdrop-blur-sm">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          {/* Left: Brand */}
+          <div className="flex items-center gap-3">
+            <NextLink href="/" className="flex items-center gap-2">
+              <Logo />
+              <span
+                aria-hidden="true"
+                className="inline-block h-6 w-px bg-default-200 rounded mx-1"
+              />
+              <p className="font-bold text-xl text-inherit">Veridion Studios</p>
+            </NextLink>
+          </div>
 
-      <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
-        <NavbarItem className="hidden sm:flex gap-2">
-          <ThemeSwitch />
-        </NavbarItem>
-        <NavbarItem className="hidden md:flex">
-          <SignedOut>
-            <SignUpButton mode="modal">
-              <Button variant="solid" className="bg-[#8722EA] text-white">
-                Sign Up
-              </Button>
-            </SignUpButton>
-            <div className="mx-1" />
-            <SignInButton mode="modal">
-              <Button variant="ghost">
-                Sign In
-              </Button>
-            </SignInButton>
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-        </NavbarItem>
-      </NavbarContent>
-
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <ThemeSwitch  />
-        <NavbarMenuToggle />
-      </NavbarContent>
-
-      <NavbarMenu>
-        <div className="mx-4 mt-2 flex flex-col gap-2">
-          {siteConfig.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                }
-                href="#"
-                size="lg"
+          {/* Center: Desktop nav */}
+          <div className="hidden sm:flex sm:items-center sm:justify-center sm:flex-1 gap-4">
+            {/* render one DropdownMenu per tag from the JSON */}
+            {Object.entries(grouped).map(([tag, items]) => (
+              <DropdownMenu
+                key={tag}
+                onOpenChange={(open: boolean) => setOpenTag(open ? tag : null)}
               >
-                {item.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="p-0 bg-transparent hover:bg-transparent flex items-center gap-2"
+                    aria-label={`Open ${tag} programs`}
+                  >
+                    <span>{capitalize(tag)}</span>
+                    {/* animated chevron that rotates when this tag's dropdown is open */}
+                    <ChevronDown
+                      className={`size-4 transition-transform duration-200 ${openTag === tag ? "rotate-180" : ""}`}
+                      aria-hidden
+                    />
+                  </Button>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent className="w-80 p-2">
+                  <DropdownMenuLabel>{capitalize(tag)}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <div className="flex flex-col gap-1">
+                    {items.map((item: any) => (
+                      <DropdownMenuItem
+                        key={item.key}
+                        className="flex items-start gap-3 py-2"
+                        // add navigation here if desired (NextLink / onSelect)
+                      >
+                        <div className="mt-0.5">{icons[item.startContent as keyof typeof icons]}</div>
+                        <div className="flex flex-col">
+                          <span className="font-medium">{item.title}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {item.description}
+                          </span>
+                        </div>
+                      </DropdownMenuItem>
+                    ))}
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ))}
+          </div>
+
+          {/* Right: actions */}
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-2">
+              <ThemeToggle />
+            </div>
+
+            <div className="hidden md:flex items-center gap-2">
+              <SignedOut>
+                <SignUpButton mode="modal">
+                  <Button variant="purple" className="rounded-xl text-white">
+                    Sign Up
+                  </Button>
+                </SignUpButton>
+                <div className="mx-0.5" />
+                <SignInButton mode="modal">
+                  <Button variant="outline" className="rounded-xl">Sign In</Button>
+                </SignInButton>
+              </SignedOut>
+
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
+
+            {/* Mobile Toggle */}
+            <div className="sm:hidden flex items-center">
+              <ThemeToggle />
+              <button
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                onClick={() => setMobileOpen((s) => !s)}
+                className="ml-2 inline-flex items-center justify-center rounded-md p-2 hover:bg-accent"
+              >
+                {mobileOpen ? <XIcon className="size-5" /> : <MenuIcon className="size-5" />}
+              </button>
+            </div>
+          </div>
         </div>
-      </NavbarMenu>
-    </HeroUINavbar>
+      </div>
+    </nav>
   );
 };
 
-// add default export for convenience
 export default Navbar;

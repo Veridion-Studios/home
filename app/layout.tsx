@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import Navbar from "@/components/navbar";
+import { ClerkProvider } from "@clerk/nextjs";
+import { FlickeringGrid } from "@/components/magicui/flickering-grid";
+import { LightRays } from "@/components/magicui/light-rays";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,16 +31,20 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} dark:bg-black bg-white antialiased`}
       >
+        <ClerkProvider>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
+          <LightRays opacity={1} />
+          <Navbar />
           {children}
         </ThemeProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

@@ -1,0 +1,30 @@
+[
+  {
+    "key": "publishing_company",
+    "title": "The Veridion Publishing Company",
+    "description": "Our in-house publishing company for our authors.",
+    "startContent": "book",
+    "tag": "Our Programs"
+  },
+  {
+    "key": "book_hunt",
+    "title": "The Veridion Book Hunt",
+    "description": "A scavenger hunt for book lovers.",
+    "startContent": "search",
+    "tag": "Our Programs"
+  },
+  {
+    "key": "writers_co-op",
+    "title": "The Veridion Writers Co-op",
+    "description": "A collaborative space for writers to connect and create.",
+    "startContent": "users",
+    "tag": "Our Programs"
+  },
+  {
+    "key": "logbook",
+    "title": "The Veridion Logbook",
+    "description": "A space for writers to track their reading progress and notes.",
+    "startContent": "scroll",
+    "tag": "Our Programs"
+  }
+]
