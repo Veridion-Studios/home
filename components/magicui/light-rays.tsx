@@ -94,7 +94,6 @@ export function LightRays({
   speed = 14,
   length = "70vh",
   ref,
-  opacity = 0.1,
   ...props
 }: LightRaysProps) {
   const [rays, setRays] = useState<LightRay[]>([])

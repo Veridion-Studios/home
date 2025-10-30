@@ -43,3 +43,5 @@ next-env.d.ts
 .github
 # clerk configuration (can include secrets)
 /.clerk/
+
+.vercel

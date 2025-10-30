@@ -23,7 +23,6 @@ export type ThemeToggleProps = {
 const themes = ["light", "dark", "system"] as const
 
 function ThemeToggle({
-  buttonVariant = "outline",
   buttonSize = "icon",
   className,
   showMenu = true,

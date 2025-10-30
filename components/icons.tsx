@@ -1,18 +1,23 @@
 import * as React from "react";
+import Image, { type ImageProps } from "next/image";
 
-import { IconSvgProps } from "@/types";
+type LogoProps = Omit<ImageProps, "src" | "alt" | "width" | "height"> & {
+  size?: number;
+  width?: number;
+  height?: number;
+};
 
-export const Logo: React.FC<IconSvgProps> = ({
+export const Logo: React.FC<LogoProps> = ({
   size = 30,
   width,
   height,
   ...props
 }) => (
-  <img
+  <Image
     src="/icon.png"
     alt="Logo"
     height={size || height}
     width={size || width}
-    {...(props as any)}
+    {...props}
   />
 );

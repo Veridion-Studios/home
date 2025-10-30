@@ -4,7 +4,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import { ClerkProvider } from "@clerk/nextjs";
-import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { LightRays } from "@/components/magicui/light-rays";
 
 const geistSans = Geist({

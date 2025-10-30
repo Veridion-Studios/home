@@ -56,7 +56,7 @@ const HomePage = () => {
               className="text-lg md:text-xl mb-8 text-neutral-900 dark:text-neutral-400"
               animation="blurIn"
               as="h1"
-              delay={1}
+              delay={0.1}
               >
               Veridion Studios is a creative agency for makers, dreamers, and
               founders — helping you turn sparks of imagination into stunning,

@@ -35,7 +35,6 @@ import {
 } from "@clerk/nextjs";
 
 import dropdownProgramsRaw from "@/data/dropdown-programs.json";
-import { AnimatedThemeToggler } from "./magicui/animated-theme-toggler";
 
 export const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -55,12 +54,23 @@ export const Navbar: React.FC = () => {
     : [];
 
   // group items by tag (expects each item in the JSON to have a "tag" string)
-  const grouped = dropdownPrograms.reduce<Record<string, any[]>>((acc, item: any) => {
-    const tag = (item?.tag as string) || "Other";
-    if (!acc[tag]) acc[tag] = [];
-    acc[tag].push(item);
-    return acc;
-  }, {});
+  type ProgramItem = {
+    key: string;
+    tag?: string;
+    title: string;
+    description: string;
+    startContent?: string; // <-- allow string from JSON
+    [key: string]: unknown;
+  };
+  const grouped = dropdownPrograms.reduce<Record<string, ProgramItem[]>>(
+    (acc, item: ProgramItem) => {
+      const tag = (item?.tag as string) || "Other";
+      if (!acc[tag]) acc[tag] = [];
+      acc[tag].push(item);
+      return acc;
+    },
+    {}
+  );
 
   const capitalize = (s: string) =>
     s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
@@ -107,13 +117,15 @@ export const Navbar: React.FC = () => {
                   <DropdownMenuLabel>{capitalize(tag)}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="flex flex-col gap-1">
-                    {items.map((item: any) => (
+                    {items.map((item: ProgramItem) => (
                       <DropdownMenuItem
                         key={item.key}
                         className="flex items-start gap-3 py-2"
-                        // add navigation here if desired (NextLink / onSelect)
                       >
-                        <div className="mt-0.5">{icons[item.startContent as keyof typeof icons]}</div>
+                        <div className="mt-0.5">
+                          {/* Only show icon if valid key */}
+                          {icons[item.startContent as keyof typeof icons] ?? null}
+                        </div>
                         <div className="flex flex-col">
                           <span className="font-medium">{item.title}</span>
                           <span className="text-sm text-muted-foreground">
