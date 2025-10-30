@@ -35,6 +35,7 @@ import {
 } from "@clerk/nextjs";
 
 import dropdownProgramsRaw from "@/data/dropdown-programs.json";
+import { AnimatedThemeToggler } from "./magicui/animated-theme-toggler";
 
 export const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);

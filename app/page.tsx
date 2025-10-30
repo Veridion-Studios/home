@@ -1,4 +1,4 @@
-import { BorderBeam } from "@/components/magicui/border-beam";
+import { TextAnimate } from "@/components/magicui/text-animate";
 import { Button } from "@/components/ui/button";
 import {
   Upload,
@@ -45,22 +45,30 @@ const HomePage = () => {
             <p className="text-sm uppercase tracking-wider text-purple-700 dark:text-purple-400 mb-2">
               Build Your Project Today
             </p>
-            <h1 className="text-6xl md:text-6xl font-bold mb-4 text-black dark:text-white">
-              Where Ideas Come to Life
-            </h1>
-            <p className="text-lg md:text-xl mb-8 text-neutral-900 dark:text-neutral-400">
+            <TextAnimate 
+              className="text-6xl md:text-6xl font-bold mb-4 text-black dark:text-white" 
+              animation="blurIn" 
+              as="h1"
+            >
+                Where Ideas Come to Life
+            </TextAnimate>
+            <TextAnimate 
+              className="text-lg md:text-xl mb-8 text-neutral-900 dark:text-neutral-400"
+              animation="blurIn"
+              as="h1"
+              delay={1}
+              >
               Veridion Studios is a creative agency for makers, dreamers, and
               founders — helping you turn sparks of imagination into stunning,
               scalable projects. From websites to full business launches, we make
               creation simple.
-            </p>
+            </TextAnimate>
 
             <Button
               size="xl"
               variant="purple"
               className="rounded-2xl mt-4 text-lg"
             >
-            <BorderBeam duration={8} size={100} />
               Get Started
             </Button>
           </div>

@@ -138,3 +138,7 @@
   0% { opacity: 1; transform: scale(0); }
   100% { opacity: 0; transform: scale(2); }
 }
+::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
