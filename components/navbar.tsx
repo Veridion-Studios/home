@@ -34,7 +34,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 
-import dropdownProgramsRaw from "@/data/dropdown-programs.json";
+import mainNavbarRaw from "@/config/main-navbar.json";
 
 export const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -49,17 +49,16 @@ export const Navbar: React.FC = () => {
     search: <Search className="text-[#8722EA] size-4" />,
   };
 
-  const dropdownPrograms = Array.isArray(dropdownProgramsRaw)
-    ? dropdownProgramsRaw
+  const dropdownPrograms = Array.isArray(mainNavbarRaw)
+    ? mainNavbarRaw
     : [];
 
-  // group items by tag (expects each item in the JSON to have a "tag" string)
   type ProgramItem = {
     key: string;
     tag?: string;
     title: string;
     description: string;
-    startContent?: string; // <-- allow string from JSON
+    startContent?: string;
     [key: string]: unknown;
   };
   const grouped = dropdownPrograms.reduce<Record<string, ProgramItem[]>>(
