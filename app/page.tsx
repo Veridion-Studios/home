@@ -42,28 +42,28 @@ const HomePage = () => {
       {/*  <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-black to-violet-900 -z-10" /> */}
         <main className="container mx-auto max-w-7xl flex-grow flex items-center justify-center">
           <div className="max-w-4xl">
-            <p className="text-sm uppercase tracking-wider text-purple-700 dark:text-purple-400 mb-2">
+            <TextAnimate animation="blurInUp" by="character" className="text-sm uppercase tracking-wider text-purple-700 dark:text-purple-400 mb-2">
               Build Your Project Today
-            </p>
+            </TextAnimate>
             <TextAnimate 
               className="text-6xl md:text-6xl font-bold mb-4 text-black dark:text-white" 
-              animation="blurIn" 
+              animation="blurInUp" 
               as="h1"
             >
                 Where Ideas Come to Life
             </TextAnimate>
             <TextAnimate 
               className="text-lg md:text-xl mb-8 text-neutral-900 dark:text-neutral-400"
-              animation="blurIn"
+              animation="blurInUp"
               as="h1"
-              delay={0.1}
+              delay={0.2}
               >
               Veridion Studios is a creative agency for makers, dreamers, and
               founders — helping you turn sparks of imagination into stunning,
               scalable projects. From websites to full business launches, we make
               creation simple.
             </TextAnimate>
-
+            
             <Button
               size="xl"
               variant="purple"

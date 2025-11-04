@@ -147,13 +147,13 @@ export const Navbar: React.FC = () => {
 
             <div className="hidden md:flex items-center gap-2">
               <SignedOut>
-                <SignUpButton mode="modal">
+                <SignUpButton>
                   <Button variant="purple" className="rounded-xl text-white">
                     Sign Up
                   </Button>
                 </SignUpButton>
                 <div className="mx-0.5" />
-                <SignInButton mode="modal">
+                <SignInButton>
                   <Button variant="outline" className="rounded-xl">Sign In</Button>
                 </SignInButton>
               </SignedOut>
