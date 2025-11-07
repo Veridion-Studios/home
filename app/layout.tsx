@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import Navbar from "@/components/navbar";
+import Navbar, { Header } from "@/components/navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { LightRays } from "@/components/magicui/light-rays";
 
@@ -31,18 +31,34 @@ export default function RootLayout({
       <head />
       <body
         className={`${geistSans.variable} ${geistMono.variable} dark:bg-black bg-white antialiased`}
+        style={{ position: "relative", minHeight: "100vh" }}
       >
-        <ClerkProvider>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+        {/* Background LightRays */}
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 0,
+            width: "100vw",
+            height: "100vh",
+            pointerEvents: "none",
+          }}
         >
           <LightRays opacity={1} />
-          <Navbar />
-          {children}
-        </ThemeProvider>
+        </div>
+        <ClerkProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {/* Content floats above LightRays */}
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <Header />
+              {children}
+            </div>
+          </ThemeProvider>
         </ClerkProvider>
       </body>
     </html>
