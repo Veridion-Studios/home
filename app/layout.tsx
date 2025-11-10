@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import Navbar, { Header } from "@/components/navbar";
 import { ClerkProvider } from "@clerk/nextjs";
+import { HexagonBackground } from "@/components/backgrounds/hexagon";
 import { LightRays } from "@/components/magicui/light-rays";
 
 const geistSans = Geist({
@@ -33,7 +34,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} dark:bg-black bg-white antialiased`}
         style={{ position: "relative", minHeight: "100vh" }}
       >
-        {/* Background LightRays */}
         <div
           style={{
             position: "fixed",
@@ -44,7 +44,8 @@ export default function RootLayout({
             pointerEvents: "none",
           }}
         >
-          <LightRays opacity={1} />
+  
+        <LightRays opacity={1}/>
         </div>
         <ClerkProvider>
           <ThemeProvider
@@ -53,7 +54,6 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {/* Content floats above LightRays */}
             <div style={{ position: "relative", zIndex: 1 }}>
               <Header />
               {children}

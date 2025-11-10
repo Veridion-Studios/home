@@ -21,3 +21,33 @@ export const Logo: React.FC<LogoProps> = ({
     {...props}
   />
 );
+
+export const TextLogo: React.FC<LogoProps> = ({
+  size = 30,
+  width,
+  height,
+  ...props
+}) => (
+  <Image
+    src="/icon-text.png"
+    alt="Veridion Studios Logo - Text"
+    height={size || height}
+    width={size || width}
+    {...props}
+  />
+);
+
+export const TextLogoSVG: React.FC<LogoProps> = ({
+  size = 30,
+  width,
+  height,
+  ...props
+}) => (
+  <Image
+    src="/icon-text.svg"
+    alt="Veridion Studios Logo - Text"
+    height={size || height}
+    width={size || width}
+    {...props}
+  />
+);

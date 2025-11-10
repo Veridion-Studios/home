@@ -18,7 +18,6 @@ import {
 } from "lucide-react";
 import React from "react";
 import { createPortal } from "react-dom";
-import { WordmarkIcon } from "@/components/logo";
 import { MenuToggleIcon } from "@/components/menu-toggle-icon";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +30,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { useScroll } from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
+import { Righteous as RighteousFont } from "next/font/google";
 
 type LinkItem = {
   title: string;
@@ -38,6 +38,8 @@ type LinkItem = {
   icon: LucideIcon;
   description?: string;
 };
+
+const Righteous = RighteousFont({ subsets: ["latin"], weight: "400" });
 
 export function Header() {
   const [open, setOpen] = React.useState(false);
@@ -63,8 +65,8 @@ export function Header() {
     >
       <nav className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-4">
         <div className="flex items-center gap-5">
-          <a className="rounded-md p-2 hover:bg-accent" href="#">
-            <WordmarkIcon className="h-4" />
+          <a className="text-xl rounded-md p-2" href="/">
+            <span className={Righteous.className}>Veridion Studios</span>
           </a>
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>

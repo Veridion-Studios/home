@@ -52,52 +52,16 @@ function Button({
     asChild?: boolean
   }) {
   const Comp = asChild ? Slot : "button"
-  const [ripples, setRipples] = React.useState<{x: number, y: number, size: number, key: number}[]>([]);
-  const rippleTimeout = React.useRef<NodeJS.Timeout | null>(null);
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (props.onClick) props.onClick(e);
-    const rect = e.currentTarget.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const x = e.clientX - rect.left - size / 2;
-    const y = e.clientY - rect.top - size / 2;
-    setRipples((prev) => [...prev, { x, y, size, key: Date.now() }]);
-    if (rippleTimeout.current) clearTimeout(rippleTimeout.current);
-    rippleTimeout.current = setTimeout(() => setRipples([]), 600);
-  };
 
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }), "relative overflow-hidden")}
-      onClick={handleClick}
+      className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     >
       {props.children}
-      {/* Ripple effect */}
-      {ripples.map(ripple => (
-        <span
-          key={ripple.key}
-          className="absolute pointer-events-none rounded-full bg-white/30 animate-ripple"
-          style={{
-            left: ripple.x,
-            top: ripple.y,
-            width: ripple.size,
-            height: ripple.size,
-          }}
-        />
-      ))}
     </Comp>
   )
 }
-
-// Tailwind animation (add to your global CSS, e.g. globals.css):
-// .animate-ripple {
-//   animation: ripple 0.6s linear;
-// }
-// @keyframes ripple {
-//   0% { opacity: 1; transform: scale(0); }
-//   100% { opacity: 0; transform: scale(2); }
-// }
 
 export { Button, buttonVariants }
