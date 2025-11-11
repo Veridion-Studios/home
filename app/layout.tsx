@@ -6,6 +6,8 @@ import Navbar, { Header } from "@/components/navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { HexagonBackground } from "@/components/backgrounds/hexagon";
 import { LightRays } from "@/components/magicui/light-rays";
+import { FlickeringGrid } from "@/components/magicui/flickering-grid";
+import { BubbleBackground } from "@/components/animate-ui/components/backgrounds/bubble";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,7 +47,7 @@ export default function RootLayout({
           }}
         >
   
-        <LightRays opacity={1}/>
+        <BubbleBackground />
         </div>
         <ClerkProvider>
           <ThemeProvider

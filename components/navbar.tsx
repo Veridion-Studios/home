@@ -63,7 +63,7 @@ export function Header() {
           scrolled,
       })}
     >
-      <nav className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-4">
+      <nav className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4">
         <div className="flex items-center gap-5">
           <a className="text-xl rounded-md p-2" href="/">
             <span className={Righteous.className}>Veridion Studios</span>
