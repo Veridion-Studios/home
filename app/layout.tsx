@@ -2,11 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import Navbar, { Header } from "@/components/navbar";
+import { Header } from "@/components/navbar";
 import { ClerkProvider } from "@clerk/nextjs";
-import { HexagonBackground } from "@/components/backgrounds/hexagon";
-import { LightRays } from "@/components/magicui/light-rays";
-import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { BubbleBackground } from "@/components/animate-ui/components/backgrounds/bubble";
 
 const geistSans = Geist({

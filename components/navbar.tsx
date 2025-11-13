@@ -17,6 +17,7 @@ import {
   Users,
 } from "lucide-react";
 import React from "react";
+import Link from "next/link";
 import { createPortal } from "react-dom";
 import { MenuToggleIcon } from "@/components/menu-toggle-icon";
 import { Button } from "@/components/ui/button";
@@ -65,9 +66,9 @@ export function Header() {
     >
       <nav className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4">
         <div className="flex items-center gap-5">
-          <a className="text-xl rounded-md p-2" href="/">
+          <Link className="text-xl rounded-md p-2" href="/">
             <span className={Righteous.className}>Veridion Studios</span>
-          </a>
+          </Link>
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>
               <NavigationMenuItem>
