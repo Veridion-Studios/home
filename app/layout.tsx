@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import { Header } from "@/components/navbar";
+import NavbarVisibility from "@/components/NavbarVisibility";
 import { ClerkProvider } from "@clerk/nextjs";
 import { BubbleBackground } from "@/components/animate-ui/components/backgrounds/bubble";
+import { LightRays } from "@/components/magicui/light-rays";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,7 +45,7 @@ export default function RootLayout({
           }}
         >
   
-        <BubbleBackground />
+        <LightRays />
         </div>
         <ClerkProvider>
           <ThemeProvider
@@ -54,7 +55,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <div style={{ position: "relative", zIndex: 1 }}>
-              <Header />
+              <NavbarVisibility />
               {children}
             </div>
           </ThemeProvider>
