@@ -35,19 +35,7 @@ import {
   PromptInputTools,
 } from '@/components/ai-elements/prompt-input';
 import { Fragment, useState } from 'react';
-import { useChat } from '@ai-sdk/react';
 import { CopyIcon, GlobeIcon, RefreshCcwIcon } from 'lucide-react';
-import {
-  Source,
-  Sources,
-  SourcesContent,
-  SourcesTrigger,
-} from '@/components/ai-elements/sources';
-import {
-  Reasoning,
-  ReasoningContent,
-  ReasoningTrigger,
-} from '@/components/ai-elements/reasoning';
 import { Loader } from '@/components/ai-elements/loader';
 
 const models = [
@@ -61,33 +49,86 @@ const models = [
   },
 ];
 
+const CHAT_API_URL = '/api/chat';
+
+type ChatMessage = {
+  id: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+};
+
 const ChatBotDemo = () => {
   const [input, setInput] = useState('');
   const [model, setModel] = useState<string>(models[0].value);
   const [webSearch, setWebSearch] = useState(false);
-  const { messages, sendMessage, status, regenerate } = useChat();
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [status, setStatus] = useState<'idle' | 'submitted' | 'streaming'>('idle');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (message: PromptInputMessage) => {
+  const handleSubmit = async (message: PromptInputMessage) => {
     const hasText = Boolean(message.text);
     const hasAttachments = Boolean(message.files?.length);
+    if (!(hasText || hasAttachments)) return;
 
-    if (!(hasText || hasAttachments)) {
-      return;
-    }
+    const userMessage: ChatMessage = {
+      id: `${Date.now()}`,
+      role: 'user',
+      content: message.text || 'Sent with attachments',
+    };
+    setMessages((prev) => [...prev, userMessage]);
+    setStatus('submitted');
+    setLoading(true);
 
-    sendMessage(
-      { 
-        text: message.text || 'Sent with attachments',
-        files: message.files 
-      },
-      {
-        body: {
-          model: model,
-          webSearch: webSearch,
+    try {
+      const res = await fetch(CHAT_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      },
-    );
-    setInput('');
+        body: JSON.stringify({
+          model,
+          messages: [
+            ...messages.map((m) => ({ role: m.role, content: m.content })),
+            { role: 'user', content: message.text },
+          ],
+          webSearch,
+        }),
+      });
+      const data = await res.json();
+      const assistantMsg = data.choices?.[0]?.message;
+      if (assistantMsg) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: `${Date.now()}-assistant`,
+            role: assistantMsg.role,
+            content: assistantMsg.content,
+          },
+        ]);
+      }
+    } catch (err) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `${Date.now()}-error`,
+          role: 'assistant',
+          content: 'Error fetching response from Hack Club AI.',
+        },
+      ]);
+    } finally {
+      setInput('');
+      setStatus('idle');
+      setLoading(false);
+    }
+  };
+
+  const regenerate = async () => {
+    if (messages.length === 0) return;
+    // Remove last assistant message and resend last user message
+    const lastUser = [...messages].reverse().find((m) => m.role === 'user');
+    if (!lastUser) return;
+    setMessages((prev) => prev.filter((m, i) => i < prev.length - 1));
+    await handleSubmit({ text: lastUser.content, files: [] });
   };
 
   return (
@@ -95,76 +136,34 @@ const ChatBotDemo = () => {
       <div className="flex flex-col h-full">
         <Conversation className="h-full">
           <ConversationContent>
-            {messages.map((message) => (
+            {messages.map((message, idx) => (
               <div key={message.id}>
-                {message.role === 'assistant' && message.parts.filter((part) => part.type === 'source-url').length > 0 && (
-                  <Sources>
-                    <SourcesTrigger
-                      count={
-                        message.parts.filter(
-                          (part) => part.type === 'source-url',
-                        ).length
-                      }
-                    />
-                    {message.parts.filter((part) => part.type === 'source-url').map((part, i) => (
-                      <SourcesContent key={`${message.id}-${i}`}>
-                        <Source
-                          key={`${message.id}-${i}`}
-                          href={part.url}
-                          title={part.url}
-                        />
-                      </SourcesContent>
-                    ))}
-                  </Sources>
-                )}
-                {message.parts.map((part, i) => {
-                  switch (part.type) {
-                    case 'text':
-                      return (
-                        <Message key={`${message.id}-${i}`} from={message.role}>
-                          <MessageContent>
-                            <MessageResponse>
-                              {part.text}
-                            </MessageResponse>
-                          </MessageContent>
-                          {message.role === 'assistant' && i === messages.length - 1 && (
-                            <MessageActions>
-                              <MessageAction
-                                onClick={() => regenerate()}
-                                label="Retry"
-                              >
-                                <RefreshCcwIcon className="size-3" />
-                              </MessageAction>
-                              <MessageAction
-                                onClick={() =>
-                                  navigator.clipboard.writeText(part.text)
-                                }
-                                label="Copy"
-                              >
-                                <CopyIcon className="size-3" />
-                              </MessageAction>
-                            </MessageActions>
-                          )}
-                        </Message>
-                      );
-                    case 'reasoning':
-                      return (
-                        <Reasoning
-                          key={`${message.id}-${i}`}
-                          className="w-full"
-                          isStreaming={status === 'streaming' && i === message.parts.length - 1 && message.id === messages.at(-1)?.id}
-                        >
-                          <ReasoningTrigger />
-                          <ReasoningContent>{part.text}</ReasoningContent>
-                        </Reasoning>
-                      );
-                    default:
-                      return null;
-                  }
-                })}
+                <Message from={message.role}>
+                  <MessageContent>
+                    <MessageResponse>
+                      {message.content}
+                    </MessageResponse>
+                  </MessageContent>
+                  {message.role === 'assistant' && idx === messages.length - 1 && (
+                    <MessageActions>
+                      <MessageAction
+                        onClick={() => regenerate()}
+                        label="Retry"
+                      >
+                        <RefreshCcwIcon className="size-3" />
+                      </MessageAction>
+                      <MessageAction
+                        onClick={() => navigator.clipboard.writeText(message.content)}
+                        label="Copy"
+                      >
+                        <CopyIcon className="size-3" />
+                      </MessageAction>
+                    </MessageActions>
+                  )}
+                </Message>
               </div>
             ))}
-            {status === 'submitted' && <Loader />}
+            {loading && <Loader />}
           </ConversationContent>
           <ConversationScrollButton />
         </Conversation>
@@ -214,7 +213,7 @@ const ChatBotDemo = () => {
                 </PromptInputSelectContent>
               </PromptInputSelect>
             </PromptInputTools>
-            <PromptInputSubmit disabled={!input && !status} status={status} />
+            <PromptInputSubmit disabled={!input && !status} status={status === 'streaming' ? 'streaming' : status === 'submitted' ? 'submitted' : undefined} />
           </PromptInputFooter>
         </PromptInput>
       </div>
@@ -223,3 +222,14 @@ const ChatBotDemo = () => {
 };
 
 export default ChatBotDemo;
+
+<style jsx global>{`
+  body, html {
+    overflow: hidden;
+  }
+
+  .max-w-4xl {
+    /* If you want to hide scrollbars for this container only */
+    overflow: hidden;
+  }
+`}</style>

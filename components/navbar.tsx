@@ -32,6 +32,8 @@ import {
 import { useScroll } from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { Righteous as RighteousFont } from "next/font/google";
+import { DialogTrigger } from "./ui/dialog";
+import DialogChatbot from "./chatbot/dialog";
 
 type LinkItem = {
   title: string;
@@ -134,6 +136,9 @@ export function Header() {
           </NavigationMenu>
         </div>
         <div className="hidden items-center gap-2 md:flex">
+
+          <DialogChatbot />
+
           <Button variant="outline">Sign In</Button>
           <Button>Get Started</Button>
         </div>
