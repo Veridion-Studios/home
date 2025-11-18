@@ -4,8 +4,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import NavbarVisibility from "@/components/NavbarVisibility";
 import { ClerkProvider } from "@clerk/nextjs";
-import { BubbleBackground } from "@/components/animate-ui/components/backgrounds/bubble";
 import { LightRays } from "@/components/magicui/light-rays";
+import { Footer } from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,6 +57,7 @@ export default function RootLayout({
             <div style={{ position: "relative", zIndex: 1 }}>
               <NavbarVisibility />
               {children}
+              <Footer />
             </div>
           </ThemeProvider>
         </ClerkProvider>
