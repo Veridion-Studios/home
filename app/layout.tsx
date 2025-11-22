@@ -6,6 +6,7 @@ import NavbarVisibility from "@/components/NavbarVisibility";
 import { ClerkProvider } from "@clerk/nextjs";
 import { LightRays } from "@/components/magicui/light-rays";
 import { Footer } from "@/components/footer";
+import { PromoBannerTwo } from "@/components/promo-banner-02";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,6 +57,7 @@ export default function RootLayout({
           >
             <div style={{ position: "relative", zIndex: 1 }}>
               <NavbarVisibility />
+              <PromoBannerTwo />
               {children}
               <Footer />
             </div>

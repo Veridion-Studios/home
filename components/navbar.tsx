@@ -32,7 +32,6 @@ import {
 import { useScroll } from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { Righteous as RighteousFont } from "next/font/google";
-import { DialogTrigger } from "./ui/dialog";
 import DialogChatbot from "./chatbot/dialog";
 
 type LinkItem = {
@@ -85,7 +84,9 @@ export function Header() {
                       </li>
                     ))}
                   </ul>
-                  <div className="p-2">
+
+
+                {/*  <div className="p-2">
                     <p className="text-muted-foreground text-sm">
                       Interested?{" "}
                       <a
@@ -95,7 +96,10 @@ export function Header() {
                         Schedule a demo
                       </a>
                     </p>
-                  </div>
+                    
+                  </div> */}
+
+                  
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
@@ -252,35 +256,23 @@ const productLinks: LinkItem[] = [
     icon: GlobeIcon,
   },
   {
-    title: "Cloud Platform",
+    title: "API Builder",
     href: "#",
-    description: "Deploy and scale apps in the cloud",
+    description: "Create APIs, fast and simple. Integrate with many tools!",
     icon: LayersIcon,
   },
   {
-    title: "Team Collaboration",
+    title: "YSWS Programs",
     href: "#",
-    description: "Tools to help your teams work better together",
+    description: "A program inspired by Hack Club. You ship a project, we ship you something!",
     icon: UserPlusIcon,
   },
   {
-    title: "Analytics",
+    title: "Headless CMS",
     href: "#",
-    description: "Track and analyze your website traffic",
+    description: "Manage your content with a flexible headless CMS",
     icon: BarChart,
-  },
-  {
-    title: "Integrations",
-    href: "#",
-    description: "Connect your apps and services",
-    icon: PlugIcon,
-  },
-  {
-    title: "API",
-    href: "#",
-    description: "Build custom integrations with our API",
-    icon: CodeIcon,
-  },
+  }
 ];
 
 const companyLinks: LinkItem[] = [
@@ -289,12 +281,6 @@ const companyLinks: LinkItem[] = [
     href: "#",
     description: "Learn more about our story and team",
     icon: Users,
-  },
-  {
-    title: "Customer Stories",
-    href: "#",
-    description: "See how we’ve helped our clients succeed",
-    icon: Star,
   },
   {
     title: "Partnerships",
@@ -316,20 +302,10 @@ const companyLinks2: LinkItem[] = [
     icon: Shield,
   },
   {
-    title: "Refund Policy",
-    href: "#",
-    icon: RotateCcw,
-  },
-  {
     title: "Blog",
     href: "#",
     icon: Leaf,
-  },
-  {
-    title: "Help Center",
-    href: "#",
-    icon: HelpCircle,
-  },
+  }
 ];
 
 export default Header;

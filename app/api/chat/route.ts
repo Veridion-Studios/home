@@ -7,11 +7,9 @@ export async function POST(req: Request) {
   const {
     messages,
     model,
-    webSearch,
   }: {
     messages: { role: string; content: string }[];
     model: string;
-    webSearch: boolean;
   } = await req.json();
 
   const apiKey = process.env.HACKCLUB_API_KEY || process.env.NEXT_PUBLIC_HACKCLUB_API_KEY;
