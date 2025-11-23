@@ -10,11 +10,11 @@ import { Button } from "@/components/ui/button";
 
 const footerLinks = [
   {
-    title: "Company",
+    title: "Our Programs",
     links: [
-      { href: "#", label: "The Linomore Blog" },
-      { href: "#", label: "Engineering Blog" },
-      { href: "#", label: "Marketplace" },
+      { href: "#", label: "Drag & Drop Website Builder" },
+      { href: "#", label: "API Builder" },
+      { href: "#", label: "YSWS Programs" },
       { href: "#", label: "What’s New" },
       { href: "#", label: "About" },
       { href: "#", label: "Press" },

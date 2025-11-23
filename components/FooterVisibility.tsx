@@ -1,12 +1,12 @@
 "use client";
 
 import { usePathname } from 'next/navigation';
-import Navbar from './navbar';
+import { Footer } from './footer';
 
-export default function NavbarVisibility() {
+export default function FooterVisibility() {
   const pathname = usePathname();
   if (pathname.startsWith('/chatbot') || pathname.startsWith('/editor')) {
     return null;
   }
-  return <Navbar />;
+  return <Footer />;
 }

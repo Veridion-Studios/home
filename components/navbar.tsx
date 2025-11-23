@@ -64,7 +64,7 @@ export function Header() {
         "border-border bg-background/95 backdrop-blur-lg supports-[backdrop-filter]:bg-background/50":
           scrolled,
       })}
-    >
+    >  
       <nav className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4">
         <div className="flex items-center gap-5">
           <Link className="text-xl rounded-md p-2" href="/">
