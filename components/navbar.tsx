@@ -1,18 +1,13 @@
 "use client";
 import {
   BarChart,
-  CodeIcon,
   FileText,
   GlobeIcon,
   Handshake,
-  HelpCircle,
   LayersIcon,
   Leaf,
   type LucideIcon,
-  PlugIcon,
-  RotateCcw,
   Shield,
-  Star,
   UserPlusIcon,
   Users,
 } from "lucide-react";
@@ -33,6 +28,7 @@ import { useScroll } from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { Righteous as RighteousFont } from "next/font/google";
 import DialogChatbot from "./chatbot/dialog";
+import { RetroButton } from "./retroui/button";
 
 type LinkItem = {
   title: string;
@@ -143,8 +139,8 @@ export function Header() {
 
           <DialogChatbot />
 
-          <Button variant="outline">Sign In</Button>
-          <Button>Get Started</Button>
+          <RetroButton variant="outline">Sign In</RetroButton>
+          <RetroButton>Get Started</RetroButton>
         </div>
         <Button
           aria-controls="mobile-menu"
@@ -178,10 +174,10 @@ export function Header() {
           </div>
         </NavigationMenu>
         <div className="flex flex-col gap-2">
-          <Button className="w-full bg-transparent" variant="outline">
+          <RetroButton variant="default">
             Sign In
-          </Button>
-          <Button className="w-full">Get Started</Button>
+          </RetroButton>
+          <RetroButton>Get Started</RetroButton>
         </div>
       </MobileMenu>
     </header>
