@@ -61,7 +61,7 @@ export function Header() {
           scrolled,
       })}
     >  
-      <nav className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4">
+      <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4">
         <div className="flex items-center gap-5">
           <Link className="text-xl rounded-md p-2" href="/">
             <span className={Righteous.className}>Veridion Studios</span>
@@ -197,7 +197,7 @@ function MobileMenu({ open, children, className, ...props }: MobileMenuProps) {
     <div
       className={cn(
         "bg-background/95 backdrop-blur-lg supports-[backdrop-filter]:bg-background/50",
-        "fixed top-14 right-0 bottom-0 left-0 z-40 flex flex-col overflow-hidden border-y md:hidden"
+        "fixed top-16 right-0 bottom-0 left-0 z-40 flex flex-col overflow-hidden border-y md:hidden"
       )}
       id="mobile-menu"
     >

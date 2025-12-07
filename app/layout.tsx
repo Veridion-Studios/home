@@ -57,7 +57,7 @@ export default function RootLayout({
           >
             <div style={{ position: "relative", zIndex: 1 }}>
               <NavbarVisibility />
-              <PromoBannerTwo />
+              {/* <PromoBannerTwo /> */}
               {children}
               <FooterVisibility />
             </div>

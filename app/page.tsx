@@ -6,7 +6,6 @@ import {
   RefreshCcw,
   Fingerprint,
 } from "lucide-react";
-import AnimatedContent from "@/components/backgrounds/AnimatedContent";
 import { RetroButton } from "@/components/retroui/button";
 
 const features = [
@@ -43,7 +42,7 @@ const HomePage = () => {
       <section className="min-h-[85vh] flex flex-col justify-center items-center text-center animate-fadeIn relative">
       {/*  <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-black to-violet-900 -z-10" /> */}
         <main className="container mx-auto max-w-7xl flex-grow flex items-center justify-center">
-          <div className="max-w-4xl">
+          <div className="max-w-5xl">
             <TextAnimate animation="blurInUp" by="character" className="text-sm uppercase tracking-wider text-purple-700 dark:text-purple-400 mb-2">
               Build Your Project Today
             </TextAnimate>
@@ -52,7 +51,7 @@ const HomePage = () => {
               animation="blurInUp" 
               as="h1"
             >
-                Where Ideas Come to Life
+                A Community Book Scavenger Hunt
             </TextAnimate>
             <TextAnimate 
               className="text-lg md:text-xl mb-8 text-neutral-900 dark:text-neutral-400"
